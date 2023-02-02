@@ -1,0 +1,86 @@
+# this file has been generated from ansible sources + injected code
+# manual edits might be lost
+# license: GPLv3+, same as ansible
+
+import argparse
+from pathlib import Path
+from functools import cache
+
+
+def to_bytes(s):
+    if isinstance(s, str):
+        return s.encode()
+    assert isinstance(s, bytes)
+    return s
+
+
+b = to_bytes
+
+
+def to_native(s):
+    if isinstance(s, bytes):
+        return s.decode()
+    assert isinstance(s, str)
+    return s
+
+
+class AnsibleModule:
+    @staticmethod
+    def parse_bool(v):
+        if v.lower() in ("y", "yes", "1", "true"):
+            return True
+        if v.lower() in ("n", "no", "0", "false"):
+            return False
+        raise ValueError(f"{v!r} not recognized as bool")
+
+    def __init__(self, argument_spec, mutually_exclusive=(), add_file_common_args=None, supports_check_mode=None):
+        self.parser = argparse.ArgumentParser()
+        for name, spec in argument_spec.items():
+            kwargs = {}
+            match spec["type"]:
+                case "str":
+                    pass
+                case "bool":
+                    kwargs["type"] = self.parse_bool
+                case "path":
+                    kwargs["type"] = Path
+
+            for copy in ("choices", "required", "default"):
+                if copy in spec:
+                    kwargs[copy] = spec[copy]
+
+            self.parser.add_argument(f"--{name.replace('_', '-')}", **kwargs)
+
+        self.parser.add_argument("--unsafe-writes", type=self.parse_bool, default=True)
+
+        self.args = self.parser.parse_args()
+        self.params = vars(self.args)
+        self.check_mode = False
+        self._diff = False  # wtf?
+
+    def fail_json(self, msg, rc=1):
+        self.parser.exit(rc, msg)
+
+    def atomic_move(self, src, dst, unsafe_writes):
+        os.rename(src, dst)
+
+    def exit_json(self, msg, changed=None, diff=None):
+        self.parser.exit(1, msg)
+
+    def boolean(self, v):
+        return v
+
+    def run_command(self, cmd):
+        raise NotImplementedError("run_command")
+
+    def load_file_common_arguments(self, _):
+        ...
+
+    def set_file_attributes_if_different(self, *args, **kwargs):
+        return False
+
+    @property
+    @cache
+    def tmpdir(self):
+        return "."
+
