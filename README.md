@@ -12,14 +12,14 @@ Options are the same as in [Ansible documentation](https://docs.ansible.com/ansi
 
 ## Sample
 
-If `myfile.conf` contains:
+#### If `myfile.conf` initially contains:
 
 ```
 sample line
 other line
 ```
 
-Then running:
+#### Then running:
 
 ```
 blockinfile --path myfile.conf --marker "# {mark} MY BLOCK" --block 'this line will be entered
@@ -37,12 +37,27 @@ this one too
 # END MY BLOCK
 ```
 
+#### Then running:
+
+```
+blockinfile --path myfile.conf --marker "# {mark} MY BLOCK" --block 'updating the section'
+```
+
+Would produce:
+
+```
+sample line
+other line
+# BEGIN MY BLOCK
+updating the section
+# END MY BLOCK
+```
 
 ## "Automated" port
 
 This project includes the source of Ansible's `blockinfile` module, slightly modified so it can work without having to use or even install Ansible. The modifications have been automated so it should be possible to easily port newer Ansible versions.
 
-See `builder/build.sh`.
+See [`builder/build.sh`](builder/build.sh).
 
 ## License
 
