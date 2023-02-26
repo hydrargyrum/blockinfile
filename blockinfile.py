@@ -38,13 +38,12 @@ class AnsibleModule:
         self.parser = argparse.ArgumentParser()
         for name, spec in argument_spec.items():
             kwargs = {}
-            match spec["type"]:
-                case "str":
-                    pass
-                case "bool":
-                    kwargs["type"] = self.parse_bool
-                case "path":
-                    kwargs["type"] = Path
+            if spec["type"] == "str":
+                pass
+            elif spec["type"] == "bool":
+                kwargs["type"] = self.parse_bool
+            elif spec["type"] == "path":
+                kwargs["type"] = Path
 
             for copy in ("choices", "required", "default"):
                 if copy in spec:
