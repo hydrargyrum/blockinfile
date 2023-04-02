@@ -39,6 +39,9 @@ Documentation = "https://gitlab.com/hydrargyrum/blockinfile"
 Issues = "https://gitlab.com/hydrargyrum/blockinfile/issues"
 Source = "https://gitlab.com/hydrargyrum/blockinfile"
 
+[project.scripts]
+blockinfile = "blockinfile.blockinfile:main"
+
 [tool.hatch.version]
 path = "blockinfile/__init__.py"
 
