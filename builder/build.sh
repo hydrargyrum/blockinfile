@@ -28,4 +28,11 @@ sed -i '1 {
 }' "$FILE"
 chmod +x "$FILE"
 
+# get ansible version
+python3 -c "import ansible.release as R; print(f'__version__ = {R.__version__!r}')" > __init__.py
+
+echo "= Move to package =================================="
+
+mv __init__.py "$FILE" ../blockinfile/
+
 echo "= Done! ============================================"
