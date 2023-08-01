@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-only
 # this file has been generated from ansible sources + injected code
 # manual edits might be lost
 # license: GPLv3+, same as ansible
