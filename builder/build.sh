@@ -1,4 +1,5 @@
 #!/bin/sh -eu
+# SPDX-License-Identifier: GPL-3.0-only
 
 cd "$(dirname "$0")"
 FILE=blockinfile.py
