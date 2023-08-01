@@ -7,6 +7,8 @@ import argparse
 from pathlib import Path
 from functools import cache
 
+import yaml
+
 
 def to_bytes(s):
     if isinstance(s, str):
@@ -35,7 +37,9 @@ class AnsibleModule:
         raise ValueError(f"{v!r} not recognized as bool")
 
     def __init__(self, argument_spec, mutually_exclusive=(), add_file_common_args=None, supports_check_mode=None):
-        self.parser = argparse.ArgumentParser()
+        module_doc = yaml.safe_load(DOCUMENTATION)
+
+        self.parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         for name, spec in argument_spec.items():
             kwargs = {}
             if spec["type"] == "str":
@@ -44,6 +48,11 @@ class AnsibleModule:
                 kwargs["type"] = self.parse_bool
             elif spec["type"] == "path":
                 kwargs["type"] = Path
+
+            try:
+                kwargs["help"] = "\n".join(module_doc["options"][name]["description"])
+            except KeyError:
+                pass
 
             for copy in ("choices", "required", "default"):
                 if copy in spec:
