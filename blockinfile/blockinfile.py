@@ -75,7 +75,7 @@ class AnsibleModule:
         os.rename(src, dst)
 
     def exit_json(self, msg, changed=None, diff=None):
-        self.parser.exit(1, msg)
+        self.parser.exit(int(not changed and bool(msg)), msg)
 
     def boolean(self, v):
         return v
