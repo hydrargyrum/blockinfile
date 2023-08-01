@@ -2,10 +2,12 @@
 
 `blockinfile` is a tool for editing automatically a text block surrounded by marker lines. It's an automated port of ansible's [blockinfile module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/blockinfile_module.html).
 
+Basically, it can overwrite a part of a file that's well delimited so it doesn't overwrite the whole file.
+
 ## Usage
 
 ```
-blockinfile --path FILE_TO_PATCH --block CONTENT_TO_INSERT [--marker NAME] [--marker-begin START_STRING] [--marker-end END_STRING] [MORE_OPTIONS]
+blockinfile --path FILE_TO_PATCH --block CONTENT_TO_INSERT [--marker MARKER_TEMPLATE] [--marker-begin START_STRING] [--marker-end END_STRING] [MORE_OPTIONS]
 ```
 
 Options are the same as in [Ansible documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/blockinfile_module.html).
