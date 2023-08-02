@@ -5,6 +5,7 @@
 # license: GPLv3+, same as ansible
 
 import argparse
+import os
 from pathlib import Path
 from functools import cache
 
