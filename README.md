@@ -61,6 +61,12 @@ This project includes the source of Ansible's `blockinfile` module, slightly mod
 
 See [`builder/build.sh`](builder/build.sh).
 
+## Install
+
+From [PyPI](https://pypi.org/project/blockinfile/):
+
+`pipx install blockinfile`
+
 ## License
 
 Since `blockinfile` is a port of (part of) Ansible's source, it's licensed under GPLv3+ just like Ansible.
