@@ -7,6 +7,7 @@ FILE=blockinfile.py
 echo "= Building environment ============================="
 
 mkdir -p env
+echo "Signature: 8a477f597d28d172789f06886806bc55" > env/CACHEDIR.TAG
 python3 -m venv env
 . ./env/bin/activate
 
