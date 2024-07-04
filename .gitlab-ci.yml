@@ -1,0 +1,12 @@
+variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PYTHONDEVMODE: "1"
+    RUNNER_GENERATE_ARTIFACTS_METADATA: "true"
+    SLSA_PROVENANCE_SCHEMA_VERSION: "v1"
+
+check-no-diff:
+    stage: "test"
+    image: "python:3"
+    script:
+        - "./builder/build.sh"
+        - "git diff --exit-code"
